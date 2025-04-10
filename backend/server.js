@@ -15,7 +15,6 @@ const cors = require("cors");
 const path = require("path");
 
 dotenv.config();
-connectDB();
 
 const app = express();
 
@@ -45,4 +44,15 @@ app.use("/api/posts", postRoutes);
 app.use("/api/system-configs", systemConfigRoutes);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+const main = async () => {
+  // Kết nối đến MongoDB
+  try {
+    await connectDB(); // Đảm bảo kết nối DB thành công
+    app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
+  } catch (error) {
+    console.error("❌ Failed to connect to the database:", error);
+    process.exit(1); // Thoát nếu không thể kết nối DB
+  }
+};
+
+main();

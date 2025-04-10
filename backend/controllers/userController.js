@@ -73,3 +73,23 @@ exports.loginUser = async (req, res) => {
     res.status(500).json({ error: "Lỗi server, vui lòng thử lại sau!" });
   }
 };
+
+exports.getUsers = async (req, res) => {
+  try {
+    const users = await User.find().select("-password"); // Không trả về mật khẩu
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ error: "Lỗi server, vui lòng thử lại sau!" });
+  }
+};
+
+exports.deleteUser = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    await User.findByIdAndDelete(id);
+    res.json({ message: "Xoá người dùng thành công" });
+  } catch (error) {
+    res.status(500).json({ error: "Lỗi server, vui lòng thử lại sau!" });
+  }
+};

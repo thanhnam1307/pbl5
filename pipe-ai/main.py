@@ -130,6 +130,7 @@ app = FastAPI()
 
 ESP32_STREAM_URL = "http://172.20.10.2:81/stream"  # IP của ESP32-CAM
 model = YOLO("runs/detect/train/weights/best.pt")
+# model = YOLO("C:\Users\Admin\Downloads\runs\content\runs\detect\train\weights\best.pt")
 
 def detect_pipes(frame):
     """Nhận diện ống nước trong ảnh bằng YOLOv8"""
